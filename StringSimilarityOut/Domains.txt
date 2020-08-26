@@ -499,5 +499,6 @@ logmein.com
 nflximg.net
 univide.com
 contoso.com
+contoso.microsoft.com
 onmicrosoft.com
 contoso.onmicrosoft.com
