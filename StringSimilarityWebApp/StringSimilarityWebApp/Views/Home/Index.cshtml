@@ -84,8 +84,8 @@
                     var element = document.getElementById("div1");
                     element.appendChild(tabu);
                 });
-            var url = "https://" + hostname + '/api/' + site + '/similarity'
-            //var url = 'https://localhost:44302/api/' + site + '/similarity';
+            //var url = "https://" + hostname + '/api/' + site + '/similarity'
+            var url = 'https://localhost:44302/api/' + site + '/similarity';
             fetch(url)
                 .then(response => response.json())
                 .then(responseData => {
