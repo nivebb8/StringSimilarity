@@ -1,0 +1,134 @@
+﻿<div class="jumbotron" id="div1">
+    <h1>Homoglyph Detector</h1>
+    <style>
+        /* Table Styles */
+
+        .table-wrapper {
+            margin: 10px 70px 70px;
+            box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+        }
+
+        .fl-table {
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: normal;
+            border: none;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            white-space: nowrap;
+            background-color: white;
+        }
+
+            .fl-table td, .fl-table th {
+                text-align: center;
+                padding: 8px;
+            }
+
+            .fl-table td {
+                border-right: 1px solid #f8f8f8;
+                font-size: 12px;
+            }
+
+            .fl-table thead th {
+                color: #ffffff;
+                background: #4FC3A1;
+            }
+
+
+                .fl-table thead th:nth-child(odd) {
+                    color: #ffffff;
+                    background: #324960;
+                }
+
+            .fl-table tr:nth-child(even) {
+                background: #F8F8F8;
+            }
+    </style>
+    <script type="text/javascript">
+        function getMetrics() {
+            var site = document.getElementById('site').value;
+            var result;
+            var request = new XMLHttpRequest();
+            var hostname = window.location.hostname;
+            var url = "https://" + hostname + '/api/' + site + '/distance';
+            //var url = 'https://localhost:44302/api/' + site + '/distance';
+            fetch(url)
+                .then(response => response.json())
+                .then(responseData => {
+                    var resp = JSON.parse(responseData);
+                    var list = document.getElementById("distab");
+                    list.parentNode.removeChild(list);
+                    var tabu = document.createElement("table");
+                    tabu.setAttribute("id", "distab");
+                    tabu.setAttribute("class", "fl - table")
+                    tabr = tabu.insertRow(0);
+                    tabc = tabr.insertCell(0);
+                    tabc.setAttribute("class", "fl-table td");
+                    tabc.innerHTML = "<b>Distance Response</b>";
+                    tabc = tabr.insertCell(1);
+                    tabc.setAttribute("class", "fl-table td");
+                    tabc.innerHTML = "<b>Value</b>";
+                    var keys = Object.keys(resp);
+                    var i = parseInt(1);
+                    keys.forEach(key => {
+                        tabr = tabu.insertRow(i);
+                        tabc = tabr.insertCell(0);
+                        tabc.setAttribute("class", "fl-table td");
+                        tabc.innerHTML = key;
+                        tabc = tabr.insertCell(1);
+                        tabc.setAttribute("class", "fl-table td");
+                        tabc.innerHTML = resp[key];
+                        i = i + 1;
+                    });
+                    var element = document.getElementById("div1");
+                    element.appendChild(tabu);
+                });
+            var url = "https://" + hostname + '/api/' + site + '/similarity'
+            //var url = 'https://localhost:44302/api/' + site + '/similarity';
+            fetch(url)
+                .then(response => response.json())
+                .then(responseData => {
+                    var resp = JSON.parse(responseData);
+                    var list = document.getElementById("simtab");
+                    list.parentNode.removeChild(list);
+                    var tabu = document.createElement("table");
+                    tabu.setAttribute("id", "simtab");
+                    tabu.setAttribute("class", "fl - table")
+                    tabr = tabu.insertRow(0);
+                    tabc = tabr.insertCell(0);
+                    tabc.setAttribute("class", "fl-table td");
+                    tabc.innerHTML = "<b>Similarity Response</b>";
+                    tabc = tabr.insertCell(1);
+                    tabc.setAttribute("class", "fl-table td");
+                    tabc.innerHTML = "<b>Value</b>";
+                    var keys = Object.keys(resp);
+                    var i = parseInt(1);
+                    keys.forEach(key => {
+                        tabr = tabu.insertRow(i);
+                        tabc = tabr.insertCell(0);
+                        tabc.setAttribute("class", "fl-table td");
+                        tabc.innerHTML = key;
+                        tabc = tabr.insertCell(1);
+                        tabc.setAttribute("class", "fl-table td");
+                        tabc.innerHTML = resp[key];
+                        i = i + 1;
+                    });
+                    var element = document.getElementById("div1");
+                    element.appendChild(tabu);
+                });
+        }
+    </script>
+    <p class="lead" align="justify">A homoglyph is one of two or more graphemes, characters, or glyphs with shapes that appear identical or very similar. Homograph/Homoglyph attack, which uses domain name homoglyphs, is a way a malicious party may deceive computer users about what remote system they are communicating with, by exploiting the fact that many different characters look alike. </p>
+    <p> Enter a suspicious domain to know if it is an homoglyph to any popular website:</p>
+    <input type="text" id="site" />
+    <p></p>
+    <button class="text-success" onclick="getMetrics()">Submit</button>
+    <p></p>
+    <p id="DistanceResponse"></p>
+    <p id="SimilarityResponse"></p>
+    <table class="fl-table" id="simtab"></table>
+    <table class="fl-table" id="distab"></table>
+</div>
+
+
